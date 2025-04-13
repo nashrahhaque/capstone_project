@@ -19,7 +19,7 @@ app.use(morgan('dev'));
 let loginLogs = [];
 
 // Load dataset from data.json
-const individuals = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+const individuals = JSON.parse(fs.readFileSync(path.join(__dirname, 'bias_data.json'), 'utf8'));
 
 // Endpoint: Get individuals data
 app.get('/api/individuals', (req, res) => {
@@ -62,6 +62,12 @@ if (fs.existsSync(buildPath)) {
     res.sendFile(path.join(buildPath, 'index.html'));
   });
 }
+
+// Error handling middleware (optional)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // Start the server
 app.listen(port, '0.0.0.0', () => {
