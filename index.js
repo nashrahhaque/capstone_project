@@ -54,8 +54,7 @@ app.get('/api/export', (req, res) => {
   }
 });
 
-// Serve static files from React's build folder if it exists
-const buildPath = path.join(__dirname, '..', 'frontend', 'build');
+const buildPath = path.join(__dirname, 'build');
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
   app.get('*', (req, res) => {
